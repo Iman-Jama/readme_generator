@@ -1,24 +1,29 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 
-const index = require("../index");
-const fs = require ("fs");
-const inquirer = require("inquirer");
+// const index = require("../index");
+// const fs = require ("fs");
+// const inquirer = require("inquirer");
 
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
     if (license == "MIT License") {
-      return `[MIT license]((https://img.shields.io/bower/l/css)`;
+      return `<a href="https://www.mit.edu/~amini/LICENSE.md" alt="MIT License">
+      <img src="https://img.shields.io/bower/l/css" /></a>`;
     }else if (license=="Apache License"){
-      return `[Apache License](https://img.shields.io/badge/Apache-License-blue)`;
+      return `<a href="https://www.apache.org/licenses/LICENSE-2.0" alt="Apache License">
+      <img src="https://img.shields.io/badge/Apache-License-blue" /></a>`;
     }else if (license =="GNU General Public License") {
-      return `[GNU General Public License](https://img.shields.io/badge/GNU-License-lightgrey)`;
+      return `<a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html" alt="GNU License">
+      <img src="https://img.shields.io/badge/GNU-License-lightgrey" /></a>`;
     }else if (license=="Boost Software License"){
-      return `[Boost Software License](https://img.shields.io/badge/Boost%20Software-License-orange)`;
-
+      return `<a href="https://www.boost.org/users/license.html" alt="Boost Software License">
+      <img src="https://img.shields.io/badge/Boost%20Software-License-orange)" /></a>`;
     }else if (license=="Mozilla Public License"){
-      return `[Mozilla Public License](https://img.shields.io/badge/Mozilla%20Public-License-red)`
+      return `<a href="https://www.mozilla.org/en-US/MPL/" alt="Mozilla Public License">
+      <img src="https://img.shields.io/badge/Mozilla%20Public-License-red" /></a>`;
     }else if (license=="Eclipse Public License") {
-      return `[Eclipse Public License](https://img.shields.io/badge/Eclipse%20Public-License-pink)`;
+      return `<a href="https://www.eclipse.org/legal/epl-2.0/" alt="Eclipse Public License">
+      <img src="https://img.shields.io/badge/Eclipse%20Public-License-pink" /></a>`;
     }else{
       return "";
     }
@@ -39,7 +44,7 @@ function renderLicenseLink(license) {
   } else if (license =="Boost Software License"){
     licenseLink = "https://www.boost.org/users/license.html";
   }else if (license=="Mozilla Public License"){
-    licenseLink = "mozilla.org/en-US/MPL/";
+    licenseLink = "https://www.mozilla.org/en-US/MPL/";
   } else if (license == "Eclipse Public License") {
     licenseLink = "https://www.eclipse.org/legal/epl-2.0/"
   }else{
@@ -51,15 +56,33 @@ function renderLicenseLink(license) {
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  let licenseSection = "";
   
+  if (license == "MIT License"){
+    return "I used the MIT license for this application."
+  }else if (license=="Apache License"){
+    return "I used the Apache license for this application."
+  }else if (license =="GNU General Public License"){
+    return "I used the GNU general public license for this application."
+  } else if (license =="Boost Software License"){
+    return "I used the Boost software License for this application."
+  }else if (license=="Mozilla Public License"){
+    return "I used the Mozilla Public License for this application."
+  } else if (license == "Eclipse Public License") {
+    return "I used the Eclipse Public License for this application."
+  }else{
+  return;
+  }
+  
+};
 
-}
+
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(answer) {
-  return `# ${answer.title}
-  ${renderLicenseBadge(answer.license)}
+  return ` # ${answer.title}
+ 
+  ${renderLicenseBadge(answer.License)} 
+  
 
   ## Description:
   ${answer.Description}
@@ -71,6 +94,8 @@ function generateMarkdown(answer) {
   - [Usage](#usage)
   - [Credits](#credits)
   - [License](#license)
+  - [Contribution](#contribute)
+  - [Contact me](#contact)
   
   ## Installation
   ${answer.installation}
@@ -79,23 +104,24 @@ function generateMarkdown(answer) {
   ## Usage
   ${answer.Usage}
   
-      
-      ![alt text](assets/images/${answer.screenshot}.png)
+  Below is a screenshot of my application:
+  ![alt text](/assets/images/${answer.screenshot}.png)
       
   
   ## Credits
   
-  The following have collaborated with me on my project:
-  - [${answer.Collaborators}](www.github.com/${answer.Collaborators})
+  The following have collaborated with me on my project:<br>
+  [${answer.Collaborators}](https://github.com/${answer.Collaborators})
   
   
   ## License
-  ${renderLicenseLink(answer.license)}
+  ${renderLicenseSection(answer.License)} Here is the link: ${renderLicenseLink(answer.License)}
   
-  ## How to Contribute
+  ## Contribute:
+  ${answer.Contribution}
   
-  ## Contact me:
-  My github is: [github/${answer.Github}](https://github.com/${answer.Github})
+  ## Contact:
+  My github is: [${answer.Github}](https://github.com/${answer.Github}) <br>
   My email is : ${answer.email}`;
 
 
